@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--数据库驱动,最好不要有中文字符,不然会找不到
+    	ps:即mybatis-generator-core-1.3.2.jar的本地地址
+    -->
+    <classPathEntry location="E:\flash\.m2\repository\mysql\mysql-connector-java\8.0.16\mysql-connector-java-8.0.16.jar" />
+
+
+    <context id="DB2Tables" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 去除set/get方法 -->
+        <plugin type="config.NoGetAndSetMethodPlugin"/>
+        <!-- JavaBean 实现 序列化 接口 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 自定义注释，注解，依赖 -->
+        <commentGenerator type="config.MyCommentGenerator" />
+
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+	        connectionURL="jdbc:mysql://*.*.*.*:3306/authority_new"
+	        userId="root" 
+	        password="******">
+        </jdbcConnection>
+
+        <!-- 类型转换 -->
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <!-- 是否使用bigDecimal
+            默认false：把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，
+            为 true时：把JDBC DECIMAL 和NUMERIC 类型解析为java.math.BigDecimal
+            -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="com.innove.authority.bean.entity" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="com.innove.authority" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成DaoMapper类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.innove.authority.dao.mapper" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 用户表 -->
+        <table tableName="t_user" domainObjectName="User"
+        enableCountByExample="false" enableUpdateByExample="false" 
+        enableDeleteByExample="false" enableSelectByExample="false" 
+        selectByExampleQueryId="false"></table>
+    </context>
+</generatorConfiguration>
